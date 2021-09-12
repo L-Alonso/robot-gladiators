@@ -10,19 +10,33 @@ var randomNumber = function(min, max) {
     return value;
 };
 
-var fight = function(enemy){
- while(enemy.health > 0 && enemy.health > 0){
-    var promptFight = window.prompt("Would you like to fight or skip this battle: enter FIGHT OR SKIP.");
+var fightOrSkip = function() {
+    // ask player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
-    if(promptFight === "SKIP" || promptFight ==="skip"){  
-        var confirmSkip = window.confirm("Are you sure you want to SKIP?");
-            if(confirmSkip){
-                window.alert(playerInfo.name+" "+"has choosen to skip the fight.");
-                playerInfo.money = Math.max(0, playerInfo.money - 10);
-                console.log("player's Money", playerInfo.money);
-                break;
-                             }
-                                                        }
+        if (promptFight === "" || promptFight === null){
+            window.alert("You need to provide a valid answer! Please try again.");
+        return fightOrSkip();
+        }
+        promptFight = promptFight.toLowerCase();
+
+        if (promptFight === "skip") {
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+        if (confirmSkip) {
+             window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+         playerInfo.playerMoney = Math.max(0, playerInfo.money - 10);
+         return true;
+        }
+    }
+        return false;
+    };
+
+  var fight = function(enemy){
+    while(playerInfo.health > 0 && enemy.health > 0){
+     //function to generate a random numeric value 
+     if(fightOrSkip()){
+         break;
+     }
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
             enemy.health = Math.max(0, enemy.health - damage);
                console.log(playerInfo.name +" "+ "attacks" +" "+enemy.name+"." +" "+ enemy.name+ " has "+enemy.health+ " left.");
@@ -47,7 +61,7 @@ var fight = function(enemy){
                 window.alert(playerInfo.name+" "+ "is still in the game.");
             }
       }
-    }
+    };
 
     var startGame= function() {
         //calls upon this and resets player's stats
