@@ -5,13 +5,18 @@ var playerMoney = 10;
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
-var enenmyAttack = 12;
+var enemyAttack = 12;
 //GAME STARTS-----------------
 //"WIN" PLAYER ROBOT HAS DEFEATED ALL ENEMY-ROBOTS
 // *FIGHT ALL ENEMY-ROBOTS
 // *DEFEAT EACH ENEMY-ROBOT
 //"LOSE" PLAYER ROBOT'S HEALTH IS ZERO OR LESS
 
+
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min +1)+ min);
+    return value;
+};
 
 var fight = function(enemyName){
  while(enemyHealth > 0 && enemyHealth > 0){
@@ -21,13 +26,13 @@ var fight = function(enemyName){
         var confirmSkip = window.confirm("Are you sure you want to SKIP?");
             if(confirmSkip){
                 window.alert(playerName+" "+"has choosen to skip the fight.");
-                playerMoney = playerMoney - 10;
+                playerMoney = Math.max(0, playerMoney - 10);
                 console.log("playerMoney", playerMoney);
                 break;
                              }
                                                         }
-
-             enemyHealth = enemyHealth - playerAttack;
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+             enemyHealth = Math.max(0, enemyHealth - damage);
                console.log(playerName +" "+ "attacks" +" "+enemyName+"." +" "+ enemyName+ " has "+enemyHealth+ " left.");
                 if (enemyHealth <= 0){
                          window.alert(enemyName+" has been destroyed!");
@@ -37,7 +42,8 @@ var fight = function(enemyName){
                 else{
                         window.alert(enemyName +" "+ "survives("+enemyHealth+")");
                                     }
-                playerHealth = playerHealth -enenmyAttack;
+            var damage = randomNumber(enemyAttack - 3, enemyAttack);
+                playerHealth = Math.max(0, playerHealth -enemyAttack);
                 console.log(enemyName+" "+"counter attacks! "+ playerName+ " has : " + playerHealth);
 
 
@@ -60,7 +66,7 @@ var fight = function(enemyName){
         if (playerHealth >0){
             window.alert("Welcome to Robot Gladiators! " + (i + 1));
         var pickedEnemyName = enemyNames[i];
-            enemyHealth= 50;
+            enemyHealth= randomNumber(40, 60);
   
        fight(pickedEnemyName);
             if(playerHealth > 0 && i< enemyNames.length -1){
