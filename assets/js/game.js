@@ -115,22 +115,18 @@ var fightOrSkip = function() {
                "Would you like to Refill your health, upgrade your attack, or leaave the store? Please enter one: 'R', 'U', 'L' to make a choice.");
            
 
-           switch (shopOptionPrompt){
-               case "R":
-                case"r":
-                  playerInfo.refillHealth();
-                    break;
-
-                case "U":
-                case "u":
-                    playerInfo.upgradeAttack();
-                    break;
-
-                case "L":
-                case "l":
-                    window.alert("Leaving the store");
-                    // do nothing, so function will end
-                    break;
+               shopOptionPrompt = parseInt(shopOptionPrompt);
+               //use switch to carry out action
+               switch (shopOptionPrompt) {
+                   case 1:
+                   playerInfo.refillHealth();
+                       break;
+               case 2:
+                  playerInfo.upgradeAttack();
+                  break;
+               case 3:  
+                   window.alert("Leaving the store.");
+                   break;
                     
                 default:
                     window.alert("you did not pick a valid option. Try again.");
